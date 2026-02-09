@@ -45,7 +45,7 @@ _No server required._
 Built and designed by **Asad Mirza**  
 
 LinkedIn: https://www.linkedin.com/in/asad-mirza-8554a134b/  
-GitHub: https://github.com/asadmirza  
+GitHub: https://github.com/asadmirza-34  
 
 ---
 
@@ -53,5 +53,6 @@ GitHub: https://github.com/asadmirza
 
 This project is for **learning and educational purposes**.  
 If reused, please provide proper credit to the author.
+
 
 
