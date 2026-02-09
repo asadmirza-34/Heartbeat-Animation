@@ -28,7 +28,7 @@ This project demonstrates creative **CSS animations, JavaScript logic, and moder
 ## ⚙️ How to Run
 
 1. Download or clone the repository:
-git clone https://github.com/your-username/heartbeat-animation.git
+git clone https://github.com/asadmirza-34/Heartbeat-Animation
 
 2. Open the project folder.
 
@@ -53,4 +53,5 @@ GitHub: https://github.com/asadmirza
 
 This project is for **learning and educational purposes**.  
 If reused, please provide proper credit to the author.
+
 
