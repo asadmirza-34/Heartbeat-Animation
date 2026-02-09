@@ -1,0 +1,156 @@
+<!--
+  Heartbeat Animation UI
+  Built by Asad Mirza
+  Tech: HTML, CSS, JavaScript
+  GitHub: https://github.com/asadmirza
+  LinkedIn: https://www.linkedin.com/in/asadmirza
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heartbeat Animation</title>
+<link rel="shortcut icon" href="Heartbeat.image.png" type="image/x-icon">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at center, #0b0b0f 0%, #000 100%);
+  font-family: "Poppins", sans-serif;
+}
+.heartbeat-container {
+  display:flex;
+  align-items:center;
+  gap:50px;
+  position:relative;
+}
+.heart {
+  position:relative;
+  width:120px;
+  height:120px;
+  background:#ff0000;
+  transform:rotate(-45deg);
+  animation: heartPulse 1.3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px #ff0000);
+  cursor:pointer;
+}
+.heart::before,.heart::after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  background:#ff0000;
+  border-radius:50%;
+}
+.heart::before{ top:-60px; left:0;}
+.heart::after{ left:60px; top:0;}
+@keyframes heartPulse {
+  0%,100%{ transform:rotate(-45deg) scale(1); filter:drop-shadow(0 0 15px #ff0000);}
+  25%{ transform:rotate(-45deg) scale(1.15); filter:drop-shadow(0 0 40px #ff0000);}
+  50%{ transform:rotate(-45deg) scale(0.9); filter:drop-shadow(0 0 25px #ff0000);}
+  75%{ transform:rotate(-45deg) scale(1.1); filter:drop-shadow(0 0 35px #ff0000);}
+}
+.ecg-line {
+  position:relative;
+  width:400px;
+  height:4px;
+  background: rgba(255,255,255,0.1);
+  border-radius:2px;
+}
+.wave{
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:200%;
+  height:100%;
+  background: linear-gradient(90deg, transparent 0%, #00ffcc 30%, #00ffcc 70%, transparent 100%);
+  clip-path: polygon(
+    0% 50%,10% 50%,15% 0%,20% 100%,25% 50%,40% 50%,45% 0%,50% 100%,55% 50%,70% 50%,75% 0%,80% 100%,85% 50%,100% 50%
+  );
+  animation: waveMove 1.3s linear infinite;
+}
+@keyframes waveMove {0%{left:-100%;}100%{left:100%;}}
+.status-text{
+  position:absolute;
+  bottom:-60px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#00ffcc;
+  font-size:1.4rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  animation:textPulse 1.3s ease-in-out infinite;
+}
+@keyframes textPulse{0%,100%{opacity:0.7; transform:translateX(-50%) scale(1);}50%{opacity:1; transform:translateX(-50%) scale(1.05);}}
+/* 💯 Heartbeat Number */
+.heartbeat-number{
+  position:absolute;
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:1.6rem;
+  color:#00ffcc;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+<div class="heartbeat-container">
+  <div class="heart"></div>
+  <div class="ecg-line">
+    <div class="wave"></div>
+    <div class="heartbeat-number" id="heartbeatNum">71%</div>
+  </div>
+  <div class="status-text">Heartbeat Active</div>
+</div>
+
+<script>
+const heart = document.querySelector('.heart');
+const wave = document.querySelector('.wave');
+const text = document.querySelector('.status-text');
+const number = document.getElementById('heartbeatNum');
+let isRunning = true;
+let startTime = null;
+
+// Animate heartbeat number like real pulse
+function animateNumber(timestamp){
+  if(!startTime) startTime = timestamp;
+  if(!isRunning){
+    startTime = timestamp - ((timestamp - startTime) % 1300);
+    requestAnimationFrame(animateNumber);
+    return;
+  }
+
+  const elapsed = timestamp - startTime;
+  const t = (elapsed % 1300)/1300; // 0→1
+  // simulate heartbeat number: start ~71%, rises to ~95%, falls back ~60%
+  const value = 71 + Math.sin(t*Math.PI*2)*12; 
+  number.textContent = Math.round(value) + "%";
+
+  requestAnimationFrame(animateNumber);
+}
+
+requestAnimationFrame(animateNumber);
+
+heart.addEventListener('click',()=>{
+  isRunning = !isRunning;
+  if(isRunning){
+    heart.style.animationPlayState='running';
+    wave.style.animationPlayState='running';
+    text.textContent='Heartbeat Active';
+    text.style.color='#00ffcc';
+  }else{
+    heart.style.animationPlayState='paused';
+    wave.style.animationPlayState='paused';
+    text.textContent='Heartbeat Paused';
+    text.style.color='#ff3b6f';
+  }
+});
+</script>
+</body>
+</html>
