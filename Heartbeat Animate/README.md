@@ -51,8 +51,9 @@ GitHub: https://github.com/asadmirza-34
 
 ## 📜 License
 
-This project is for **learning and educational purposes**.  
-If reused, please provide proper credit to the author.
+This project is for **learning purposes**.  
+
+
 
 
 
